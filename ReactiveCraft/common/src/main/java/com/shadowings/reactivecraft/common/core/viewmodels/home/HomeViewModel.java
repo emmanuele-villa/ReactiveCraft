@@ -1,43 +1,56 @@
 package com.shadowings.reactivecraft.common.core.viewmodels.home;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
-import com.shadowings.reactivecraft.common.core.services.home.ICharacterPreviewVMListProvider;
+import com.shadowings.reactivecraft.common.core.models.home.CharacterPreviewList;
+import com.shadowings.reactivecraft.common.core.services.home.ICharacterListService;
 import com.shadowings.reactivecraft.common.core.viewmodels.base.MainSectionViewModelBase;
 import com.shadowings.simplelocator.SimpleLocator;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 
 public class HomeViewModel extends MainSectionViewModelBase {
 
     //region injections
-    private ICharacterPreviewVMListProvider characterPreviewListService;
+    private ICharacterListService characterListService;
 
     public HomeViewModel()
     {
-        init(SimpleLocator.getInstance().get(ICharacterPreviewVMListProvider.class));
+        init(SimpleLocator.getInstance().get(ICharacterListService.class));
     }
 
-    public HomeViewModel(ICharacterPreviewVMListProvider characterPreviewListService)
+    public HomeViewModel(ICharacterListService characterListService)
     {
-        init(characterPreviewListService);
+        init(characterListService);
     }
 
     //endregion
 
-    private void init(ICharacterPreviewVMListProvider characterPreviewListService)
+    private void init(ICharacterListService characterListService)
     {
-        this.characterPreviewListService = characterPreviewListService;
+        this.characterListService = characterListService;
 
-        assert this.characterPreviewListService != null;
+        assert this.characterListService != null;
     }
 
     @NonNull
-    public final BehaviorSubject<CharacterPreviewListViewModel> characterPreviewListBehaviorSubject = BehaviorSubject.create();
+    public Observable<CharacterPreviewListViewModel> characterPreviewListBehaviorSubject;
 
     @Override
-    public void activated() {
-        super.activated();
-        characterPreviewListBehaviorSubject.onNext(characterPreviewListService.get());
+    protected void registerRules() {
+        characterPreviewListBehaviorSubject =
+                isActive
+                        .filter((active) -> active)
+                        .subscribeOn(Schedulers.computation())
+                        .observeOn(Schedulers.computation())
+                        .flatMap(b -> this.characterListService.get())
+                        .map(CharacterPreviewListViewModel::build);
     }
+
 }

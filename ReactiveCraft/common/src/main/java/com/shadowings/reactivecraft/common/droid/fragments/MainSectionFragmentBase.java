@@ -12,15 +12,15 @@ public abstract class MainSectionFragmentBase<T extends IMainSectionViewModel> e
     @Override
     public void onResume() {
         super.onResume();
-        bind();
         viewModel.activated();
+        bind();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        unbind();
         viewModel.deactivated();
+        unbind();
     }
 
     //endregion

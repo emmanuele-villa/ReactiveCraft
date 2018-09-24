@@ -40,14 +40,21 @@ public class SplashViewModel extends MainSectionViewModelBase {
 
         assert mainSectionNavigator != null;
 
-        Observable.timer(5, TimeUnit.SECONDS, Schedulers.io())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::openHome);
+
     }
 
     private void openHome(Long l)
     {
         mainSectionNavigator.open(HomeViewModel.class);
+    }
+
+    @Override
+    protected void registerRules() {
+        register(
+            Observable.timer(5, TimeUnit.SECONDS, Schedulers.io())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::openHome)
+        );
     }
 }
