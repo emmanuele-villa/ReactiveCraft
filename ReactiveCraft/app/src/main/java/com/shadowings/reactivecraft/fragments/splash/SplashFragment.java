@@ -11,4 +11,9 @@ public class SplashFragment extends MainSectionFragmentBase<SplashViewModel> {
     protected int getLayoutId() {
         return R.layout.fragment_splash;
     }
+
+    @Override
+    protected void registerRules() {
+
+    }
 }

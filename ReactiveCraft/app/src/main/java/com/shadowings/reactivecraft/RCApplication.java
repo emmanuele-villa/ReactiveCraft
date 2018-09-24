@@ -6,11 +6,13 @@ import android.app.Application;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.shadowings.reactivecraft.common.core.services.home.CharacterPreviewVMListProvider;
+import com.shadowings.reactivecraft.common.core.services.home.ICharacterPreviewListLoader;
+import com.shadowings.reactivecraft.common.core.services.home.ICharacterPreviewVMListProvider;
+import com.shadowings.reactivecraft.common.core.services.home.StubCharacterPreviewListLoader;
 import com.shadowings.reactivecraft.common.core.viewmodels.base.IMainSectionNavigator;
 import com.shadowings.reactivecraft.common.core.viewmodels.home.HomeViewModel;
-import com.shadowings.reactivecraft.common.core.viewmodels.splash.SplashViewModel;
 import com.shadowings.reactivecraft.fragments.home.HomeFragment;
-import com.shadowings.reactivecraft.fragments.splash.SplashFragment;
 import com.shadowings.reactivecraft.navigation.MainSectionNavigator;
 import com.shadowings.simplelocator.SimpleLocator;
 
@@ -39,8 +41,13 @@ public class RCApplication extends Application implements Application.ActivityLi
 
     private void initSimpleLocator()
     {
-        SimpleLocator.getInstance().register(IMainSectionNavigator.class, MainSectionNavigator::new);
         SimpleLocator.getInstance().register(AppCompatActivity.class, RCApplication::getCurrentActivity);
+
+        SimpleLocator.getInstance().register(IMainSectionNavigator.class, MainSectionNavigator::new);
+        SimpleLocator.getInstance().register(ICharacterPreviewVMListProvider.class, CharacterPreviewVMListProvider::new);
+
+        //TODO: swap StubCharacterPreviewListLoader to the real one
+        SimpleLocator.getInstance().register(ICharacterPreviewListLoader.class, StubCharacterPreviewListLoader::new);
     }
 
     //region Application.ActivityLifecycleCallbacks
