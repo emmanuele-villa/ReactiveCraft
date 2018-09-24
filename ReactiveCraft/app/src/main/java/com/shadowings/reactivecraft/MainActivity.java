@@ -1,11 +1,10 @@
 package com.shadowings.reactivecraft;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.shadowings.reactivecraft.common.core.viewmodels.splash.SplashViewModel;
-import com.shadowings.reactivecraft.fragments.SplashFragment;
+import com.shadowings.reactivecraft.fragments.splash.SplashFragment;
 
 public class MainActivity extends AppCompatActivity {
 

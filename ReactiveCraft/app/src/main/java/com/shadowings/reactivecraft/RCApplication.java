@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.shadowings.reactivecraft.common.core.viewmodels.base.IMainSectionNavigator;
+import com.shadowings.reactivecraft.common.core.viewmodels.home.HomeViewModel;
 import com.shadowings.reactivecraft.common.core.viewmodels.splash.SplashViewModel;
-import com.shadowings.reactivecraft.fragments.SplashFragment;
+import com.shadowings.reactivecraft.fragments.home.HomeFragment;
+import com.shadowings.reactivecraft.fragments.splash.SplashFragment;
 import com.shadowings.reactivecraft.navigation.MainSectionNavigator;
 import com.shadowings.simplelocator.SimpleLocator;
 
@@ -24,12 +26,15 @@ public class RCApplication extends Application implements Application.ActivityLi
     @Override
     public void onCreate() {
         super.onCreate();
+
+        registerActivityLifecycleCallbacks(this);
+
         initSimpleLocator();
         initNavigation();
     }
 
     private void initNavigation() {
-        MainSectionNavigator.addRule(SplashViewModel.class, SplashFragment::new);
+        MainSectionNavigator.addRule(HomeViewModel.class, HomeFragment::new);
     }
 
     private void initSimpleLocator()

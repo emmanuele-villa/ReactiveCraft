@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.shadowings.reactivecraft.common.core.viewmodels.base.IMainSectionViewModel;
 import com.shadowings.reactivecraft.common.core.viewmodels.base.IViewModel;
 
-public abstract class FragmentBase<T extends IMainSectionViewModel> extends Fragment{
+public abstract class FragmentBase<T extends IViewModel> extends Fragment{
 
     protected abstract int getLayoutId();
 
