@@ -11,14 +11,16 @@ import android.view.ViewGroup;
 import com.shadowings.reactivecraft.common.core.viewmodels.base.IMainSectionViewModel;
 import com.shadowings.reactivecraft.common.core.viewmodels.base.IViewModel;
 
-public abstract class FragmentBase<T extends IViewModel> extends Fragment{
+public abstract class FragmentBase<T extends IViewModel> extends Fragment {
 
     protected abstract int getLayoutId();
 
     protected T viewModel;
+
     public T getViewModel() {
         return viewModel;
     }
+
     public void setViewModel(T viewModel) {
         this.viewModel = viewModel;
     }

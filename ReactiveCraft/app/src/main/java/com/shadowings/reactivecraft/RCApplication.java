@@ -3,6 +3,7 @@ package com.shadowings.reactivecraft;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -40,6 +41,7 @@ public class RCApplication extends Application implements Application.ActivityLi
     private void initSimpleLocator()
     {
         SimpleLocator.getInstance().register(AppCompatActivity.class, RCApplication::getCurrentActivity);
+        SimpleLocator.getInstance().register(SharedPreferences.class, () -> this.getSharedPreferences(getClass().getName(), MODE_PRIVATE));
 
         SimpleLocator.getInstance().register(IMainSectionNavigator.class, MainSectionNavigator::new);
         SimpleLocator.getInstance().register(ICharacterListService.class, CharacterListService::new);

@@ -45,7 +45,7 @@ public class SplashViewModel extends MainSectionViewModelBase {
 
     private void openHome(Long l)
     {
-        mainSectionNavigator.open(HomeViewModel.class);
+        mainSectionNavigator.set(HomeViewModel.class);
     }
 
     @Override
