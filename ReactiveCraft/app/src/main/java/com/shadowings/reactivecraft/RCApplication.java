@@ -7,10 +7,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.shadowings.reactivecraft.common.core.services.charactercreation.CharacterCreationService;
+import com.shadowings.reactivecraft.common.core.services.charactercreation.ICharacterCreationService;
 import com.shadowings.reactivecraft.common.core.services.home.CharacterListService;
 import com.shadowings.reactivecraft.common.core.services.home.ICharacterListService;
+import com.shadowings.reactivecraft.common.core.viewmodels.CreateCharacterViewModel;
 import com.shadowings.reactivecraft.common.core.viewmodels.base.IMainSectionNavigator;
 import com.shadowings.reactivecraft.common.core.viewmodels.home.HomeViewModel;
+import com.shadowings.reactivecraft.fragments.charactercreation.CreateCharacterFragment;
 import com.shadowings.reactivecraft.fragments.home.HomeFragment;
 import com.shadowings.reactivecraft.navigation.MainSectionNavigator;
 import com.shadowings.simplelocator.SimpleLocator;
@@ -36,6 +40,7 @@ public class RCApplication extends Application implements Application.ActivityLi
 
     private void initNavigation() {
         MainSectionNavigator.addRule(HomeViewModel.class, HomeFragment::new);
+        MainSectionNavigator.addRule(CreateCharacterViewModel.class, CreateCharacterFragment::new);
     }
 
     private void initSimpleLocator()
@@ -45,6 +50,7 @@ public class RCApplication extends Application implements Application.ActivityLi
 
         SimpleLocator.getInstance().register(IMainSectionNavigator.class, MainSectionNavigator::new);
         SimpleLocator.getInstance().register(ICharacterListService.class, CharacterListService::new);
+        SimpleLocator.getInstance().register(ICharacterCreationService.class, CharacterCreationService::new);
     }
 
     //region Application.ActivityLifecycleCallbacks

@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.shadowings.reactivecraft.common.core.models.home.CharacterPreviewList;
 import com.shadowings.reactivecraft.common.core.services.home.ICharacterListService;
+import com.shadowings.reactivecraft.common.core.viewmodels.CreateCharacterViewModel;
+import com.shadowings.reactivecraft.common.core.viewmodels.base.IMainSectionNavigator;
 import com.shadowings.reactivecraft.common.core.viewmodels.base.MainSectionViewModelBase;
 import com.shadowings.simplelocator.SimpleLocator;
 
@@ -19,24 +21,30 @@ public class HomeViewModel extends MainSectionViewModelBase {
 
     //region injections
     private ICharacterListService characterListService;
+    private IMainSectionNavigator mainSectionNavigator;
 
     public HomeViewModel()
     {
-        init(SimpleLocator.getInstance().get(ICharacterListService.class));
+        init(
+                SimpleLocator.getInstance().get(ICharacterListService.class),
+                SimpleLocator.getInstance().get(IMainSectionNavigator.class)
+        );
     }
 
-    public HomeViewModel(ICharacterListService characterListService)
+    public HomeViewModel(ICharacterListService characterListService, IMainSectionNavigator mainSectionNavigator)
     {
-        init(characterListService);
+        init(characterListService, mainSectionNavigator);
     }
 
     //endregion
 
-    private void init(ICharacterListService characterListService)
+    private void init(ICharacterListService characterListService, IMainSectionNavigator mainSectionNavigator)
     {
         this.characterListService = characterListService;
+        this.mainSectionNavigator = mainSectionNavigator;
 
         assert this.characterListService != null;
+        assert this.mainSectionNavigator != null;
     }
 
     @NonNull
@@ -53,4 +61,7 @@ public class HomeViewModel extends MainSectionViewModelBase {
                         .map(CharacterPreviewListViewModel::build);
     }
 
+    public void openCharacterCreation() {
+        mainSectionNavigator.open(CreateCharacterViewModel.class);
+    }
 }

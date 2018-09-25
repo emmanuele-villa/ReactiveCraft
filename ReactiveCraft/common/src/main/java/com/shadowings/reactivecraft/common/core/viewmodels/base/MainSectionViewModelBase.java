@@ -48,5 +48,6 @@ public abstract class MainSectionViewModelBase extends ViewModelBase implements 
     }
 
     protected abstract void registerRules();
+
     //endregion
 }
