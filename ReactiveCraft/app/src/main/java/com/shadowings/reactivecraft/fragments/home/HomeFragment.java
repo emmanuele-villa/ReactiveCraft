@@ -22,6 +22,9 @@ public class HomeFragment extends MainSectionFragmentBase<HomeViewModel> {
 
     //region view setup
 
+    private FloatingActionButton fab;
+    private RecyclerView recyclerView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -32,7 +35,6 @@ public class HomeFragment extends MainSectionFragmentBase<HomeViewModel> {
         return v;
     }
 
-    private FloatingActionButton fab;
     private void setupFab(View v) {
         fab = v.findViewById(R.id.fab);
         fab.setOnClickListener(this::openCharacterCreation);
@@ -42,7 +44,6 @@ public class HomeFragment extends MainSectionFragmentBase<HomeViewModel> {
         viewModel.openCharacterCreation();
     }
 
-    private RecyclerView recyclerView;
     private void setupRecyclerView(View v) {
         recyclerView = v.findViewById(R.id.character_list_recyclerView);
 
@@ -63,15 +64,15 @@ public class HomeFragment extends MainSectionFragmentBase<HomeViewModel> {
     @Override
     protected void registerRules() {
         register(
-            viewModel
-                    .characterPreviewList
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(this::updateList)
+                viewModel
+                        .characterPreviewList
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(this::updateList)
         );
     }
 
     private void updateList(CharacterPreviewListViewModel vms) {
-        CharacterListAdapter adapter = (CharacterListAdapter)recyclerView.getAdapter();
+        CharacterListAdapter adapter = (CharacterListAdapter) recyclerView.getAdapter();
         assert adapter != null;
         adapter.setCharacterPreviewList(vms);
         adapter.notifyDataSetChanged();

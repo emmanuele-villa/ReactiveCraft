@@ -9,12 +9,18 @@ public abstract class MainSectionFragmentBase<T extends IMainSectionViewModel> e
 
     //region lifecycle
 
+    private CompositeDisposable compositeDisposable;
+
     @Override
     public void onResume() {
         super.onResume();
         viewModel.activated();
         bind();
     }
+
+    //endregion
+
+    //region rx
 
     @Override
     public void onPause() {
@@ -23,28 +29,19 @@ public abstract class MainSectionFragmentBase<T extends IMainSectionViewModel> e
         unbind();
     }
 
-    //endregion
-
-    //region rx
-
-    private CompositeDisposable compositeDisposable;
-
-    private void bind()
-    {
+    private void bind() {
         unbind();
         compositeDisposable = new CompositeDisposable();
         registerRules();
     }
 
-    private void unbind()
-    {
-        if(compositeDisposable != null) {
+    private void unbind() {
+        if (compositeDisposable != null) {
             compositeDisposable.clear();
         }
     }
 
-    protected void register(Disposable disposable)
-    {
+    protected void register(Disposable disposable) {
         compositeDisposable.add(disposable);
     }
 

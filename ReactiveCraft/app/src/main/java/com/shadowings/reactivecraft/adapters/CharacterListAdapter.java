@@ -2,13 +2,8 @@ package com.shadowings.reactivecraft.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.shadowings.reactivecraft.R;
-import com.shadowings.reactivecraft.common.core.models.home.CharacterPreviewList;
 import com.shadowings.reactivecraft.common.core.viewmodels.home.CharacterPreviewListViewModel;
 import com.shadowings.reactivecraft.views.home.CharacterPreviewView;
 
@@ -16,14 +11,12 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
 
     private CharacterPreviewListViewModel characterPreviewList;
 
-    public void setCharacterPreviewList(CharacterPreviewListViewModel list)
-    {
-        this.characterPreviewList = list;
+    public CharacterListAdapter(CharacterPreviewListViewModel characterPreviewList) {
+        this.characterPreviewList = characterPreviewList;
     }
 
-    public CharacterListAdapter(CharacterPreviewListViewModel characterPreviewList)
-    {
-        this.characterPreviewList = characterPreviewList;
+    public void setCharacterPreviewList(CharacterPreviewListViewModel list) {
+        this.characterPreviewList = list;
     }
 
     @NonNull
@@ -35,7 +28,7 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
 
     @Override
     public void onBindViewHolder(@NonNull CharacterViewHolder characterViewHolder, int i) {
-        CharacterPreviewView view = (CharacterPreviewView)characterViewHolder.itemView;
+        CharacterPreviewView view = (CharacterPreviewView) characterViewHolder.itemView;
         view.setViewModel(characterPreviewList.get(i));
     }
 

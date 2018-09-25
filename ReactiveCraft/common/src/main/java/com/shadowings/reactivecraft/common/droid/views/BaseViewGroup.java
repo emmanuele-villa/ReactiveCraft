@@ -8,18 +8,7 @@ import com.shadowings.reactivecraft.common.core.viewmodels.base.IViewModel;
 
 public abstract class BaseViewGroup<T extends IViewModel> extends ConstraintLayout {
 
-    protected abstract int getLayoutId();
-
     protected T viewModel;
-
-    public T getViewModel() {
-        return viewModel;
-    }
-
-    public void setViewModel(T viewModel) {
-        this.viewModel = viewModel;
-        viewModelChanged();
-    }
 
     public BaseViewGroup(Context context) {
         super(context);
@@ -36,8 +25,18 @@ public abstract class BaseViewGroup<T extends IViewModel> extends ConstraintLayo
         setup();
     }
 
-    private void setup()
-    {
+    protected abstract int getLayoutId();
+
+    public T getViewModel() {
+        return viewModel;
+    }
+
+    public void setViewModel(T viewModel) {
+        this.viewModel = viewModel;
+        viewModelChanged();
+    }
+
+    private void setup() {
         inflate(getContext(), getLayoutId(), this);
         initViews();
     }

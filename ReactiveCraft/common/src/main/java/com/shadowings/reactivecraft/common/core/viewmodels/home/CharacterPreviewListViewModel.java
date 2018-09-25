@@ -7,11 +7,9 @@ import java.util.ArrayList;
 
 public class CharacterPreviewListViewModel extends ArrayList<CharacterPreviewViewModel> {
 
-    public static CharacterPreviewListViewModel build(CharacterPreviewList model)
-    {
+    public static CharacterPreviewListViewModel build(CharacterPreviewList model) {
         CharacterPreviewListViewModel vms = new CharacterPreviewListViewModel();
-        for(CharacterPreview characterPreview : model)
-        {
+        for (CharacterPreview characterPreview : model) {
             CharacterPreviewViewModel vm = new CharacterPreviewViewModel();
             vm.setCharacterPreview(characterPreview);
             vms.add(vm);

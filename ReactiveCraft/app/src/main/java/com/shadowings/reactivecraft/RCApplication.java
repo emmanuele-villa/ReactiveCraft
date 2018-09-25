@@ -23,8 +23,8 @@ public class RCApplication extends Application implements Application.ActivityLi
 
     @SuppressLint("StaticFieldLeak")
     private static AppCompatActivity currentActivity;
-    public static AppCompatActivity getCurrentActivity()
-    {
+
+    public static AppCompatActivity getCurrentActivity() {
         return currentActivity;
     }
 
@@ -43,8 +43,7 @@ public class RCApplication extends Application implements Application.ActivityLi
         MainSectionNavigator.addRule(CreateCharacterViewModel.class, CreateCharacterFragment::new);
     }
 
-    private void initSimpleLocator()
-    {
+    private void initSimpleLocator() {
         SimpleLocator.getInstance().register(AppCompatActivity.class, RCApplication::getCurrentActivity);
         SimpleLocator.getInstance().register(SharedPreferences.class, () -> this.getSharedPreferences(getClass().getName(), MODE_PRIVATE));
 
@@ -57,17 +56,17 @@ public class RCApplication extends Application implements Application.ActivityLi
 
     @Override
     public void onActivityCreated(Activity activity, Bundle bundle) {
-        currentActivity = (AppCompatActivity)activity;
+        currentActivity = (AppCompatActivity) activity;
     }
 
     @Override
     public void onActivityStarted(Activity activity) {
-        currentActivity = (AppCompatActivity)activity;
+        currentActivity = (AppCompatActivity) activity;
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-        currentActivity = (AppCompatActivity)activity;
+        currentActivity = (AppCompatActivity) activity;
     }
 
     @Override

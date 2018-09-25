@@ -4,8 +4,6 @@ package com.shadowings.reactivecraft.common.core.services.charactercreation;
 import com.shadowings.reactivecraft.common.core.models.charactercreation.RealmList;
 import com.shadowings.reactivecraft.common.core.models.charactercreation.RegionList;
 
-import java.util.ArrayList;
-
 import io.reactivex.Observable;
 
 public class CharacterCreationService implements ICharacterCreationService {

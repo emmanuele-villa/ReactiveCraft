@@ -11,35 +11,31 @@ import io.reactivex.schedulers.Schedulers;
 
 public class HomeViewModel extends MainSectionViewModelBase {
 
+    public Observable<CharacterPreviewListViewModel> characterPreviewList;
     //region injections
     private ICharacterListService characterListService;
     private IMainSectionNavigator mainSectionNavigator;
 
-    public HomeViewModel()
-    {
+    public HomeViewModel() {
         init(
                 SimpleLocator.getInstance().get(ICharacterListService.class),
                 SimpleLocator.getInstance().get(IMainSectionNavigator.class)
         );
     }
 
-    public HomeViewModel(ICharacterListService characterListService, IMainSectionNavigator mainSectionNavigator)
-    {
+    //endregion
+
+    public HomeViewModel(ICharacterListService characterListService, IMainSectionNavigator mainSectionNavigator) {
         init(characterListService, mainSectionNavigator);
     }
 
-    //endregion
-
-    private void init(ICharacterListService characterListService, IMainSectionNavigator mainSectionNavigator)
-    {
+    private void init(ICharacterListService characterListService, IMainSectionNavigator mainSectionNavigator) {
         this.characterListService = characterListService;
         this.mainSectionNavigator = mainSectionNavigator;
 
         assert this.characterListService != null;
         assert this.mainSectionNavigator != null;
     }
-
-    public Observable<CharacterPreviewListViewModel> characterPreviewList;
 
     @Override
     protected void registerRules() {

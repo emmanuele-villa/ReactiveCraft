@@ -1,9 +1,7 @@
 package com.shadowings.reactivecraft.views.home;
 
 import android.content.Context;
-import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.shadowings.reactivecraft.R;
@@ -11,10 +9,7 @@ import com.shadowings.reactivecraft.common.core.viewmodels.home.CharacterPreview
 import com.shadowings.reactivecraft.common.droid.views.BaseViewGroup;
 
 public class CharacterPreviewView extends BaseViewGroup<CharacterPreviewViewModel> {
-    @Override
-    protected int getLayoutId() {
-        return R.layout.view_character_preview;
-    }
+    TextView textView;
 
     public CharacterPreviewView(Context context) {
         super(context);
@@ -28,7 +23,10 @@ public class CharacterPreviewView extends BaseViewGroup<CharacterPreviewViewMode
         super(context, attrs, defStyleAttr);
     }
 
-    TextView textView;
+    @Override
+    protected int getLayoutId() {
+        return R.layout.view_character_preview;
+    }
 
     @Override
     protected void initViews() {

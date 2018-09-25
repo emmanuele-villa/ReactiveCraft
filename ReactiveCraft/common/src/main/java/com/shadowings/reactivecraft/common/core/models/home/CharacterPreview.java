@@ -1,7 +1,5 @@
 package com.shadowings.reactivecraft.common.core.models.home;
 
-import java.io.Serializable;
-
 public class CharacterPreview {
 
     private String realm;

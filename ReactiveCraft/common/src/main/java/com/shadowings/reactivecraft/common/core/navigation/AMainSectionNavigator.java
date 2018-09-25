@@ -1,7 +1,6 @@
 package com.shadowings.reactivecraft.common.core.navigation;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -11,13 +10,13 @@ import com.shadowings.reactivecraft.common.core.viewmodels.base.IMainSectionView
 import com.shadowings.reactivecraft.common.droid.fragments.MainSectionFragmentBase;
 import com.shadowings.simplelocator.ObjectFactory;
 import com.shadowings.simplelocator.SimpleLocator;
-import java.lang.reflect.*;
 
 import java.util.HashMap;
 
 public abstract class AMainSectionNavigator implements IMainSectionNavigator {
 
     protected static HashMap<String, ObjectFactory<? extends MainSectionFragmentBase>> navigationMap = new HashMap<>();
+
     protected abstract int getReplaceId();
 
     public void open(Class<? extends IMainSectionViewModel> vm, boolean addToBackStack) {
@@ -31,7 +30,7 @@ public abstract class AMainSectionNavigator implements IMainSectionNavigator {
             FragmentManager fragmentManager = currentActivity.getSupportFragmentManager();
 
             FragmentTransaction transaction = fragmentManager.beginTransaction().replace(getReplaceId(), fragment);
-            if(addToBackStack) {
+            if (addToBackStack) {
                 transaction.addToBackStack(fragment.getViewModel().getClass().getName());
             }
             transaction.commit();
@@ -51,8 +50,7 @@ public abstract class AMainSectionNavigator implements IMainSectionNavigator {
         AppCompatActivity currentActivity = SimpleLocator.getInstance().get(AppCompatActivity.class);
 
         FragmentManager fragmentManager = currentActivity.getSupportFragmentManager();
-        for (Fragment fragment : fragmentManager.getFragments())
-        {
+        for (Fragment fragment : fragmentManager.getFragments()) {
             fragmentManager.beginTransaction().remove(fragment).commit();
         }
         open(vm, false);

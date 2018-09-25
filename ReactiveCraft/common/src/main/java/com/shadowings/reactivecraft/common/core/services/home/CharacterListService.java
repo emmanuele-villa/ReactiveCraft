@@ -5,15 +5,8 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-import com.shadowings.reactivecraft.common.core.models.home.CharacterPreview;
 import com.shadowings.reactivecraft.common.core.models.home.CharacterPreviewList;
 import com.shadowings.simplelocator.SimpleLocator;
-
-import java.lang.reflect.Type;
 
 import io.reactivex.Observable;
 
@@ -22,18 +15,15 @@ public class CharacterListService implements ICharacterListService {
     //region injections
     private SharedPreferences sharedPreferences;
 
-    public CharacterListService()
-    {
+    public CharacterListService() {
         init(SimpleLocator.getInstance().get(SharedPreferences.class));
     }
 
-    public CharacterListService(SharedPreferences sharedPreferences)
-    {
+    public CharacterListService(SharedPreferences sharedPreferences) {
         init(sharedPreferences);
     }
 
-    private void init(SharedPreferences sharedPreferences)
-    {
+    private void init(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
     }
     //endregion

@@ -8,5 +8,6 @@ import io.reactivex.Observable;
 
 public interface ICharacterCreationService {
     Observable<RegionList> getRegions();
+
     Observable<RealmList> getRealms(String region);
 }

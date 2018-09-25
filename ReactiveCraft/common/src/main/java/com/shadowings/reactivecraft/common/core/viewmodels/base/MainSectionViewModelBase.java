@@ -11,6 +11,7 @@ public abstract class MainSectionViewModelBase extends ViewModelBase implements 
 
     @NonNull
     public final BehaviorSubject<Boolean> isActive = BehaviorSubject.create();
+    private CompositeDisposable compositeDisposable;
 
     @Override
     public void activated() {
@@ -18,32 +19,27 @@ public abstract class MainSectionViewModelBase extends ViewModelBase implements 
         bind();
     }
 
+    //region rx
+
     @Override
     public void deactivated() {
         isActive.onNext(false);
         unbind();
     }
 
-    //region rx
-
-    private CompositeDisposable compositeDisposable;
-
-    private void bind()
-    {
+    private void bind() {
         unbind();
         compositeDisposable = new CompositeDisposable();
         registerRules();
     }
 
-    private void unbind()
-    {
-        if(compositeDisposable != null) {
+    private void unbind() {
+        if (compositeDisposable != null) {
             compositeDisposable.clear();
         }
     }
 
-    protected void register(Disposable disposable)
-    {
+    protected void register(Disposable disposable) {
         compositeDisposable.add(disposable);
     }
 
