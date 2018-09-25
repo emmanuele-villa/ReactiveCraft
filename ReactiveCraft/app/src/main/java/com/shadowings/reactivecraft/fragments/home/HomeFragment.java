@@ -12,12 +12,10 @@ import android.view.ViewGroup;
 
 import com.shadowings.reactivecraft.R;
 import com.shadowings.reactivecraft.adapters.CharacterListAdapter;
-import com.shadowings.reactivecraft.common.core.models.home.CharacterPreviewList;
 import com.shadowings.reactivecraft.common.core.viewmodels.home.CharacterPreviewListViewModel;
 import com.shadowings.reactivecraft.common.core.viewmodels.home.HomeViewModel;
 import com.shadowings.reactivecraft.common.droid.fragments.MainSectionFragmentBase;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class HomeFragment extends MainSectionFragmentBase<HomeViewModel> {
@@ -66,7 +64,7 @@ public class HomeFragment extends MainSectionFragmentBase<HomeViewModel> {
     protected void registerRules() {
         register(
             viewModel
-                    .characterPreviewListBehaviorSubject
+                    .characterPreviewList
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(this::updateList)
         );

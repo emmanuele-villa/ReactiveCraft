@@ -15,8 +15,6 @@ import com.shadowings.reactivecraft.common.core.models.charactercreation.RegionL
 import com.shadowings.reactivecraft.common.core.viewmodels.CreateCharacterViewModel;
 import com.shadowings.reactivecraft.common.droid.fragments.MainSectionFragmentBase;
 
-import java.util.ArrayList;
-
 public class CreateCharacterFragment extends MainSectionFragmentBase<CreateCharacterViewModel> {
 
     Spinner regionSpinner;
