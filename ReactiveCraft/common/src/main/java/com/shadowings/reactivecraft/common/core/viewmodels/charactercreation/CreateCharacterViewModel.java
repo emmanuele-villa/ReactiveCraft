@@ -8,7 +8,6 @@ import com.shadowings.reactivecraft.common.core.viewmodels.base.MainSectionViewM
 import com.shadowings.simplelocator.SimpleLocator;
 
 import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 
 public class CreateCharacterViewModel extends MainSectionViewModelBase {

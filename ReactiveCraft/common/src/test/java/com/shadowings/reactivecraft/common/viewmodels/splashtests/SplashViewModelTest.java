@@ -12,19 +12,15 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.TestScheduler;
 
-import static org.junit.Assert.assertFalse;
-
 public class SplashViewModelTest {
 
     @BeforeClass
-    public static void prepare()
-    {
+    public static void prepare() {
         SchedulerProvider.setWorkerScheduler(new TestScheduler());
     }
 
     @Test
-    public void shouldWaitFiveSeconds_thenCreateHome()
-    {
+    public void shouldWaitFiveSeconds_thenCreateHome() {
         SplashViewModel viewModel = new SplashViewModel(new HomeViewModelBuilderMock());
         TestObserver<HomeViewModel> observer = new TestObserver<>();
 
@@ -34,7 +30,7 @@ public class SplashViewModelTest {
                 .subscribeOn(SchedulerProvider.getWorkerScheduler())
                 .subscribe(observer);
 
-        ((TestScheduler)SchedulerProvider.getWorkerScheduler()).advanceTimeBy(6, TimeUnit.SECONDS);
+        ((TestScheduler) SchedulerProvider.getWorkerScheduler()).advanceTimeBy(6, TimeUnit.SECONDS);
 
         observer.assertComplete();
     }

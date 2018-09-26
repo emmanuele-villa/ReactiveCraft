@@ -17,14 +17,12 @@ import io.reactivex.schedulers.TestScheduler;
 public class HomeViewModelTest {
 
     @BeforeClass
-    public static void prepare()
-    {
+    public static void prepare() {
         SchedulerProvider.setWorkerScheduler(new TestScheduler());
     }
 
     @Test
-    public void characterListIsLoaded_afterActivation()
-    {
+    public void characterListIsLoaded_afterActivation() {
         HomeViewModel viewModel = new HomeViewModel(new CharacterListServiceMock(), new CreateCharacterViewModelBuilderMock());
         TestObserver<CharacterPreviewListViewModel> observer = new TestObserver<>();
 
@@ -34,14 +32,13 @@ public class HomeViewModelTest {
                 .subscribeOn(SchedulerProvider.getWorkerScheduler())
                 .subscribe(observer);
 
-        ((TestScheduler)SchedulerProvider.getWorkerScheduler()).advanceTimeBy(1, TimeUnit.SECONDS);
+        ((TestScheduler) SchedulerProvider.getWorkerScheduler()).advanceTimeBy(1, TimeUnit.SECONDS);
 
         observer.assertValueCount(1);
     }
 
     @Test
-    public void shouldCreateCharacterCreationViewModel_uponRequest()
-    {
+    public void shouldCreateCharacterCreationViewModel_uponRequest() {
         HomeViewModel viewModel = new HomeViewModel(new CharacterListServiceMock(), new CreateCharacterViewModelBuilderMock());
         TestObserver<CreateCharacterViewModel> observer = new TestObserver<>();
 
@@ -53,7 +50,7 @@ public class HomeViewModelTest {
 
         viewModel.requestCharacterCreationViewModel();
 
-        ((TestScheduler)SchedulerProvider.getWorkerScheduler()).advanceTimeBy(1, TimeUnit.SECONDS);
+        ((TestScheduler) SchedulerProvider.getWorkerScheduler()).advanceTimeBy(1, TimeUnit.SECONDS);
 
         observer.assertValueCount(1);
     }

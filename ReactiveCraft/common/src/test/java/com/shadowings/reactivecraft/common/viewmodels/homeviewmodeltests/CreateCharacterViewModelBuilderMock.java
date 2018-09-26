@@ -1,6 +1,5 @@
 package com.shadowings.reactivecraft.common.viewmodels.homeviewmodeltests;
 
-import com.shadowings.reactivecraft.common.core.services.charactercreation.CharacterCreationService;
 import com.shadowings.reactivecraft.common.core.viewmodels.charactercreation.CreateCharacterViewModel;
 import com.shadowings.reactivecraft.common.core.viewmodels.home.ICreateCharacterViewModelBuilder;
 

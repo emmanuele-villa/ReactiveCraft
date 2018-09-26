@@ -12,26 +12,22 @@ import io.reactivex.Observable;
 
 public class SplashViewModel extends MainSectionViewModelBase {
 
+    public Observable<HomeViewModel> homeViewModelObservable;
     private IHomeViewModelBuilder homeViewModelBuilder;
 
     //region injections
-    public SplashViewModel()
-    {
+    public SplashViewModel() {
         init(SimpleLocator.get(IHomeViewModelBuilder.class));
     }
 
-    public SplashViewModel(IHomeViewModelBuilder builder)
-    {
+    public SplashViewModel(IHomeViewModelBuilder builder) {
         init(builder);
-    }
-
-    private void init(IHomeViewModelBuilder builder)
-    {
-        this.homeViewModelBuilder = builder;
     }
     //endregion
 
-    public Observable<HomeViewModel> homeViewModelObservable;
+    private void init(IHomeViewModelBuilder builder) {
+        this.homeViewModelBuilder = builder;
+    }
 
     @Override
     protected void registerRules() {

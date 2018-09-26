@@ -7,7 +7,6 @@ import com.shadowings.reactivecraft.common.core.viewmodels.charactercreation.Cre
 import com.shadowings.simplelocator.SimpleLocator;
 
 import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 
 public class HomeViewModel extends MainSectionViewModelBase {
@@ -15,7 +14,7 @@ public class HomeViewModel extends MainSectionViewModelBase {
     public Observable<CharacterPreviewListViewModel> characterPreviewListObservable;
     public Observable<CreateCharacterViewModel> createCharacterViewModelObservable;
 
-    private BehaviorSubject<Boolean> requestOpenCharacterCreation  = BehaviorSubject.create();
+    private BehaviorSubject<Boolean> requestOpenCharacterCreation = BehaviorSubject.create();
 
     //region injections
     private ICharacterListService characterListService;
@@ -32,8 +31,7 @@ public class HomeViewModel extends MainSectionViewModelBase {
         init(characterListService, createCharacterViewModelBuilder);
     }
 
-    private void init(ICharacterListService characterListService, ICreateCharacterViewModelBuilder createCharacterViewModelBuilder)
-    {
+    private void init(ICharacterListService characterListService, ICreateCharacterViewModelBuilder createCharacterViewModelBuilder) {
         this.characterListService = characterListService;
         this.createCharacterViewModelBuilder = createCharacterViewModelBuilder;
     }

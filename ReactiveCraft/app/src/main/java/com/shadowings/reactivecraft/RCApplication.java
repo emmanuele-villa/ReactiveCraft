@@ -18,7 +18,6 @@ import com.shadowings.reactivecraft.common.core.viewmodels.splash.HomeViewModelB
 import com.shadowings.reactivecraft.common.core.viewmodels.splash.IHomeViewModelBuilder;
 import com.shadowings.simplelocator.SimpleLocator;
 
-import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 
 public class RCApplication extends Application implements Application.ActivityLifecycleCallbacks {
@@ -41,8 +40,7 @@ public class RCApplication extends Application implements Application.ActivityLi
         initScheduler();
     }
 
-    private void initScheduler()
-    {
+    private void initScheduler() {
         SchedulerProvider.setWorkerScheduler(Schedulers.io());
     }
 
