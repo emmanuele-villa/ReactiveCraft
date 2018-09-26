@@ -19,7 +19,7 @@ public class CreateCharacterViewModel extends MainSectionViewModelBase {
     private ICharacterCreationService characterCreationService;
 
     public CreateCharacterViewModel() {
-        init(SimpleLocator.getInstance().get(ICharacterCreationService.class));
+        init(SimpleLocator.get(ICharacterCreationService.class));
     }
 
     public CreateCharacterViewModel(ICharacterCreationService characterCreationService) {

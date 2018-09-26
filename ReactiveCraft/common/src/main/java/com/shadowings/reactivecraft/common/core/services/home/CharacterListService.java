@@ -16,7 +16,7 @@ public class CharacterListService implements ICharacterListService {
     private SharedPreferences sharedPreferences;
 
     public CharacterListService() {
-        init(SimpleLocator.getInstance().get(SharedPreferences.class));
+        init(SimpleLocator.get(SharedPreferences.class));
     }
 
     public CharacterListService(SharedPreferences sharedPreferences) {

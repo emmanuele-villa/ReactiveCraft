@@ -1,55 +1,51 @@
 package com.shadowings.reactivecraft.common.core.viewmodels.splash;
 
-import android.annotation.SuppressLint;
-
-import com.shadowings.reactivecraft.common.core.viewmodels.base.IMainSectionNavigator;
+import com.shadowings.reactivecraft.common.core.schedulers.SchedulerProvider;
 import com.shadowings.reactivecraft.common.core.viewmodels.base.MainSectionViewModelBase;
+import com.shadowings.reactivecraft.common.core.viewmodels.home.CharacterPreviewListViewModel;
 import com.shadowings.reactivecraft.common.core.viewmodels.home.HomeViewModel;
 import com.shadowings.simplelocator.SimpleLocator;
+
+import org.xml.sax.Locator;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
 public class SplashViewModel extends MainSectionViewModelBase {
 
+    private IHomeViewModelBuilder homeViewModelBuilder;
+
     //region injections
-
-    private IMainSectionNavigator mainSectionNavigator;
-
-    public SplashViewModel() {
-        init(SimpleLocator.getInstance().get(IMainSectionNavigator.class));
+    public SplashViewModel()
+    {
+        init(SimpleLocator.get(IHomeViewModelBuilder.class));
     }
 
-    public SplashViewModel(IMainSectionNavigator mainSectionNavigator) {
-        init(mainSectionNavigator);
+    public SplashViewModel(IHomeViewModelBuilder builder)
+    {
+        init(builder);
     }
 
+    private void init(IHomeViewModelBuilder builder)
+    {
+        this.homeViewModelBuilder = builder;
+    }
     //endregion
 
-    @SuppressLint("CheckResult")
-    private void init(IMainSectionNavigator mainSectionNavigator) {
-        this.mainSectionNavigator = mainSectionNavigator;
-
-        assert mainSectionNavigator != null;
-
-
-    }
-
-    private void openHome(Long l) {
-        mainSectionNavigator.set(HomeViewModel.class);
-    }
+    public Observable<HomeViewModel> homeViewModel;
 
     @Override
     protected void registerRules() {
-        register(
-                Observable.timer(5, TimeUnit.SECONDS, Schedulers.io())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(this::openHome)
-        );
+        homeViewModel =
+                Observable
+                        .timer(5, TimeUnit.SECONDS, SchedulerProvider.getWorkerScheduler())
+                        .subscribeOn(SchedulerProvider.getWorkerScheduler())
+                        .flatMap(__ -> homeViewModelBuilder.buildHomeViewModel());
     }
 }
+

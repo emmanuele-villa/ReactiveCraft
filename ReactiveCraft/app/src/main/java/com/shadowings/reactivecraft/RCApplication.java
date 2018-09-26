@@ -7,17 +7,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.shadowings.reactivecraft.common.core.schedulers.SchedulerProvider;
 import com.shadowings.reactivecraft.common.core.services.charactercreation.CharacterCreationService;
 import com.shadowings.reactivecraft.common.core.services.charactercreation.ICharacterCreationService;
 import com.shadowings.reactivecraft.common.core.services.home.CharacterListService;
 import com.shadowings.reactivecraft.common.core.services.home.ICharacterListService;
-import com.shadowings.reactivecraft.common.core.viewmodels.CreateCharacterViewModel;
-import com.shadowings.reactivecraft.common.core.viewmodels.base.IMainSectionNavigator;
-import com.shadowings.reactivecraft.common.core.viewmodels.home.HomeViewModel;
-import com.shadowings.reactivecraft.fragments.charactercreation.CreateCharacterFragment;
-import com.shadowings.reactivecraft.fragments.home.HomeFragment;
-import com.shadowings.reactivecraft.navigation.MainSectionNavigator;
+import com.shadowings.reactivecraft.common.core.viewmodels.splash.HomeViewModelBuilder;
+import com.shadowings.reactivecraft.common.core.viewmodels.splash.IHomeViewModelBuilder;
 import com.shadowings.simplelocator.SimpleLocator;
+
+import io.reactivex.Scheduler;
+import io.reactivex.schedulers.Schedulers;
 
 public class RCApplication extends Application implements Application.ActivityLifecycleCallbacks {
 
@@ -35,21 +35,22 @@ public class RCApplication extends Application implements Application.ActivityLi
         registerActivityLifecycleCallbacks(this);
 
         initSimpleLocator();
-        initNavigation();
+
+        initScheduler();
     }
 
-    private void initNavigation() {
-        MainSectionNavigator.addRule(HomeViewModel.class, HomeFragment::new);
-        MainSectionNavigator.addRule(CreateCharacterViewModel.class, CreateCharacterFragment::new);
+    private void initScheduler()
+    {
+        SchedulerProvider.setWorkerScheduler(Schedulers.io());
     }
 
     private void initSimpleLocator() {
-        SimpleLocator.getInstance().register(AppCompatActivity.class, RCApplication::getCurrentActivity);
-        SimpleLocator.getInstance().register(SharedPreferences.class, () -> this.getSharedPreferences(getClass().getName(), MODE_PRIVATE));
+        SimpleLocator.register(AppCompatActivity.class, RCApplication::getCurrentActivity);
+        SimpleLocator.register(SharedPreferences.class, () -> this.getSharedPreferences(getClass().getName(), MODE_PRIVATE));
 
-        SimpleLocator.getInstance().register(IMainSectionNavigator.class, MainSectionNavigator::new);
-        SimpleLocator.getInstance().register(ICharacterListService.class, CharacterListService::new);
-        SimpleLocator.getInstance().register(ICharacterCreationService.class, CharacterCreationService::new);
+        SimpleLocator.register(ICharacterListService.class, CharacterListService::new);
+        SimpleLocator.register(ICharacterCreationService.class, CharacterCreationService::new);
+        SimpleLocator.register(IHomeViewModelBuilder.class, HomeViewModelBuilder::new);
     }
 
     //region Application.ActivityLifecycleCallbacks
