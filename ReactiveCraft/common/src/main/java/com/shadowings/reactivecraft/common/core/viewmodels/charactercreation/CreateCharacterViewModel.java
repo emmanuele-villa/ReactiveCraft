@@ -1,4 +1,4 @@
-package com.shadowings.reactivecraft.common.core.viewmodels;
+package com.shadowings.reactivecraft.common.core.viewmodels.charactercreation;
 
 import com.shadowings.reactivecraft.common.core.models.charactercreation.RealmList;
 import com.shadowings.reactivecraft.common.core.models.charactercreation.RegionList;

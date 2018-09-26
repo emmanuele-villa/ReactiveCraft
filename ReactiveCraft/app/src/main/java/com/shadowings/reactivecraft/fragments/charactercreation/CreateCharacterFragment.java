@@ -12,7 +12,7 @@ import android.widget.Spinner;
 
 import com.shadowings.reactivecraft.R;
 import com.shadowings.reactivecraft.common.core.models.charactercreation.RegionList;
-import com.shadowings.reactivecraft.common.core.viewmodels.CreateCharacterViewModel;
+import com.shadowings.reactivecraft.common.core.viewmodels.charactercreation.CreateCharacterViewModel;
 import com.shadowings.reactivecraft.common.droid.fragments.MainSectionFragmentBase;
 
 public class CreateCharacterFragment extends MainSectionFragmentBase<CreateCharacterViewModel> {

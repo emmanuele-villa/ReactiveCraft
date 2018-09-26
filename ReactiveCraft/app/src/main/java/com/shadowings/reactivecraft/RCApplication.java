@@ -12,6 +12,8 @@ import com.shadowings.reactivecraft.common.core.services.charactercreation.Chara
 import com.shadowings.reactivecraft.common.core.services.charactercreation.ICharacterCreationService;
 import com.shadowings.reactivecraft.common.core.services.home.CharacterListService;
 import com.shadowings.reactivecraft.common.core.services.home.ICharacterListService;
+import com.shadowings.reactivecraft.common.core.viewmodels.charactercreation.CreateCharacterViewModelBuilder;
+import com.shadowings.reactivecraft.common.core.viewmodels.home.ICreateCharacterViewModelBuilder;
 import com.shadowings.reactivecraft.common.core.viewmodels.splash.HomeViewModelBuilder;
 import com.shadowings.reactivecraft.common.core.viewmodels.splash.IHomeViewModelBuilder;
 import com.shadowings.simplelocator.SimpleLocator;
@@ -50,7 +52,9 @@ public class RCApplication extends Application implements Application.ActivityLi
 
         SimpleLocator.register(ICharacterListService.class, CharacterListService::new);
         SimpleLocator.register(ICharacterCreationService.class, CharacterCreationService::new);
+
         SimpleLocator.register(IHomeViewModelBuilder.class, HomeViewModelBuilder::new);
+        SimpleLocator.register(ICreateCharacterViewModelBuilder.class, CreateCharacterViewModelBuilder::new);
     }
 
     //region Application.ActivityLifecycleCallbacks

@@ -38,8 +38,6 @@ public class SplashViewModelTest {
                 .subscribeOn(SchedulerProvider.getWorkerScheduler())
                 .subscribe(observer);
 
-        observer.assertNotComplete();
-
         ((TestScheduler)SchedulerProvider.getWorkerScheduler()).advanceTimeBy(6, TimeUnit.SECONDS);
 
         observer.assertComplete();

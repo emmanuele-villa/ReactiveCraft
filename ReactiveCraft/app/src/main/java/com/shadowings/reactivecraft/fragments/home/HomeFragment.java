@@ -12,9 +12,13 @@ import android.view.ViewGroup;
 
 import com.shadowings.reactivecraft.R;
 import com.shadowings.reactivecraft.adapters.CharacterListAdapter;
+import com.shadowings.reactivecraft.common.core.viewmodels.charactercreation.CreateCharacterViewModel;
 import com.shadowings.reactivecraft.common.core.viewmodels.home.CharacterPreviewListViewModel;
 import com.shadowings.reactivecraft.common.core.viewmodels.home.HomeViewModel;
 import com.shadowings.reactivecraft.common.droid.fragments.MainSectionFragmentBase;
+import com.shadowings.reactivecraft.fragments.charactercreation.CreateCharacterFragment;
+
+import java.util.Objects;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -37,10 +41,10 @@ public class HomeFragment extends MainSectionFragmentBase<HomeViewModel> {
 
     private void setupFab(View v) {
         fab = v.findViewById(R.id.fab);
-        fab.setOnClickListener(this::openCharacterCreation);
+        fab.setOnClickListener(this::requestOpenCharacterCreation);
     }
 
-    private void openCharacterCreation(View view) {
+    private void requestOpenCharacterCreation(View view) {
         viewModel.openCharacterCreation();
     }
 
@@ -65,10 +69,30 @@ public class HomeFragment extends MainSectionFragmentBase<HomeViewModel> {
     protected void registerRules() {
         register(
                 viewModel
-                        .characterPreviewList
+                        .characterPreviewListObservable
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::updateList)
         );
+
+        register(
+                viewModel
+                        .createCharacterViewModelObservable
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(this::openCharacterCreation)
+        );
+    }
+
+    private void openCharacterCreation(CreateCharacterViewModel createCharacterViewModel) {
+
+        CreateCharacterFragment createCharacterFragment = new CreateCharacterFragment();
+        createCharacterFragment.setViewModel(createCharacterViewModel);
+
+        Objects.requireNonNull(getActivity())
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack(createCharacterFragment.getClass().getName())
+                .replace(R.id.frame_layout, createCharacterFragment)
+                .commit();
     }
 
     private void updateList(CharacterPreviewListViewModel vms) {
