@@ -3,9 +3,7 @@ package com.shadowings.reactivecraft.common.core.services.charactercreation;
 
 import com.shadowings.reactivecraft.common.core.models.charactercreation.RealmList;
 import com.shadowings.reactivecraft.common.core.models.charactercreation.RegionList;
-import com.shadowings.reactivecraft.common.core.services.RealmsAPI;
 
-import java.util.Collection;
 import java.util.Collections;
 
 import io.reactivex.Observable;
