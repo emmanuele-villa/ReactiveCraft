@@ -11,13 +11,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.shadowings.reactivecraft.R;
+import com.shadowings.reactivecraft.common.core.models.charactercreation.RealmList;
 import com.shadowings.reactivecraft.common.core.models.charactercreation.RegionList;
 import com.shadowings.reactivecraft.common.core.viewmodels.charactercreation.CreateCharacterViewModel;
 import com.shadowings.reactivecraft.common.droid.fragments.MainSectionFragmentBase;
 
+import java.util.ArrayList;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+
 public class CreateCharacterFragment extends MainSectionFragmentBase<CreateCharacterViewModel> {
 
     Spinner regionSpinner;
+    Spinner realmSpinner;
 
     @Nullable
     @Override
@@ -25,24 +31,43 @@ public class CreateCharacterFragment extends MainSectionFragmentBase<CreateChara
         View view = super.onCreateView(inflater, container, savedInstanceState);
         assert view != null;
         regionSpinner = view.findViewById(R.id.regionSpinner);
+        realmSpinner = view.findViewById(R.id.realmSpinner);
         return view;
     }
 
     @Override
     protected void registerRules() {
         register(
-                viewModel.getRegions().subscribe(this::setRegions)
+                viewModel
+                        .getRegions()
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .subscribe(this::setRegions)
+        );
+
+        register(
+                viewModel
+                        .realmList
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .subscribe(this::setRealms)
         );
     }
 
+    private void setRealms(RealmList strings) {
+        setSpinner(realmSpinner, strings);
+    }
+
     private void setRegions(RegionList strings) {
-        // Creating adapter for spinner
+        setSpinner(regionSpinner, strings);
+    }
+
+    private void setSpinner(Spinner spinner, ArrayList<String> values)
+    {
         Context context = getContext();
 
         assert context != null;
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, strings);
-        regionSpinner.setAdapter(dataAdapter);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, values);
+        spinner.setAdapter(dataAdapter);
     }
 
     @Override
