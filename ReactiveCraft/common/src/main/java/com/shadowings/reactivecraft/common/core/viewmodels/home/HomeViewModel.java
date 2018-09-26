@@ -1,5 +1,6 @@
 package com.shadowings.reactivecraft.common.core.viewmodels.home;
 
+import com.shadowings.reactivecraft.common.core.schedulers.SchedulerProvider;
 import com.shadowings.reactivecraft.common.core.services.home.ICharacterListService;
 import com.shadowings.reactivecraft.common.core.viewmodels.base.MainSectionViewModelBase;
 import com.shadowings.reactivecraft.common.core.viewmodels.charactercreation.CreateCharacterViewModel;
@@ -44,8 +45,7 @@ public class HomeViewModel extends MainSectionViewModelBase {
         characterPreviewListObservable =
                 isActive
                         .filter((active) -> active)
-                        .subscribeOn(Schedulers.computation())
-                        .observeOn(Schedulers.computation())
+                        .observeOn(SchedulerProvider.getWorkerScheduler())
                         .flatMap(b -> this.characterListService.get())
                         .map(CharacterPreviewListViewModel::build);
 
@@ -54,7 +54,7 @@ public class HomeViewModel extends MainSectionViewModelBase {
                         .flatMap(__ -> createCharacterViewModelBuilder.buildCharacterViewModel());
     }
 
-    public void openCharacterCreation() {
+    public void requestCharacterCreationViewModel() {
         requestOpenCharacterCreation.onNext(true);
     }
 }

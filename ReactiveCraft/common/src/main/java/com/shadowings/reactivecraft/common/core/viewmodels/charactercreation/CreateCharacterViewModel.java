@@ -2,6 +2,7 @@ package com.shadowings.reactivecraft.common.core.viewmodels.charactercreation;
 
 import com.shadowings.reactivecraft.common.core.models.charactercreation.RealmList;
 import com.shadowings.reactivecraft.common.core.models.charactercreation.RegionList;
+import com.shadowings.reactivecraft.common.core.schedulers.SchedulerProvider;
 import com.shadowings.reactivecraft.common.core.services.charactercreation.ICharacterCreationService;
 import com.shadowings.reactivecraft.common.core.viewmodels.base.MainSectionViewModelBase;
 import com.shadowings.simplelocator.SimpleLocator;
@@ -48,8 +49,7 @@ public class CreateCharacterViewModel extends MainSectionViewModelBase {
     protected void registerRules() {
         realmList =
                 selectedRegion
-                        .subscribeOn(Schedulers.computation())
-                        .observeOn(Schedulers.computation())
+                        .observeOn(SchedulerProvider.getWorkerScheduler())
                         .flatMap(this::getRealms);
     }
 }

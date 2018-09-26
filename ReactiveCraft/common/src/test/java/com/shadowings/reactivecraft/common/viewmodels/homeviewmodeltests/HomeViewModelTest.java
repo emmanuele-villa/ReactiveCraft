@@ -1,6 +1,7 @@
 package com.shadowings.reactivecraft.common.viewmodels.homeviewmodeltests;
 
 import com.shadowings.reactivecraft.common.core.schedulers.SchedulerProvider;
+import com.shadowings.reactivecraft.common.core.viewmodels.charactercreation.CreateCharacterViewModel;
 import com.shadowings.reactivecraft.common.core.viewmodels.home.CharacterPreviewListViewModel;
 import com.shadowings.reactivecraft.common.core.viewmodels.home.HomeViewModel;
 import com.shadowings.reactivecraft.common.viewmodels.splashtests.CharacterListServiceMock;
@@ -35,6 +36,25 @@ public class HomeViewModelTest {
 
         ((TestScheduler)SchedulerProvider.getWorkerScheduler()).advanceTimeBy(1, TimeUnit.SECONDS);
 
-        observer.assertComplete();
+        observer.assertValueCount(1);
+    }
+
+    @Test
+    public void shouldCreateCharacterCreationViewModel_uponRequest()
+    {
+        HomeViewModel viewModel = new HomeViewModel(new CharacterListServiceMock(), new CreateCharacterViewModelBuilderMock());
+        TestObserver<CreateCharacterViewModel> observer = new TestObserver<>();
+
+        viewModel.activated();
+
+        viewModel.createCharacterViewModelObservable
+                .subscribeOn(SchedulerProvider.getWorkerScheduler())
+                .subscribe(observer);
+
+        viewModel.requestCharacterCreationViewModel();
+
+        ((TestScheduler)SchedulerProvider.getWorkerScheduler()).advanceTimeBy(1, TimeUnit.SECONDS);
+
+        observer.assertValueCount(1);
     }
 }

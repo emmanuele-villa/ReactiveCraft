@@ -4,17 +4,13 @@ import com.shadowings.reactivecraft.common.core.schedulers.SchedulerProvider;
 import com.shadowings.reactivecraft.common.core.viewmodels.home.HomeViewModel;
 import com.shadowings.reactivecraft.common.core.viewmodels.splash.SplashViewModel;
 
-import junit.framework.AssertionFailedError;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.observers.TestObserver;
-import io.reactivex.schedulers.Schedulers;
 import io.reactivex.schedulers.TestScheduler;
-import io.reactivex.subscribers.TestSubscriber;
 
 import static org.junit.Assert.assertFalse;
 
@@ -34,7 +30,7 @@ public class SplashViewModelTest {
 
         viewModel.activated();
 
-        viewModel.homeViewModel
+        viewModel.homeViewModelObservable
                 .subscribeOn(SchedulerProvider.getWorkerScheduler())
                 .subscribe(observer);
 

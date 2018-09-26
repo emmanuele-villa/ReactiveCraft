@@ -1,7 +1,6 @@
 package com.shadowings.reactivecraft.fragments.splash;
 
 import com.shadowings.reactivecraft.R;
-import com.shadowings.reactivecraft.common.core.viewmodels.base.ViewModelBase;
 import com.shadowings.reactivecraft.common.core.viewmodels.home.HomeViewModel;
 import com.shadowings.reactivecraft.common.core.viewmodels.splash.SplashViewModel;
 import com.shadowings.reactivecraft.common.droid.fragments.MainSectionFragmentBase;
@@ -20,7 +19,7 @@ public class SplashFragment extends MainSectionFragmentBase<SplashViewModel> {
     protected void registerRules() {
         register(
                 viewModel
-                        .homeViewModel
+                        .homeViewModelObservable
                         .subscribe(this::openHome)
         );
     }

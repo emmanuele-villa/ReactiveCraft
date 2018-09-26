@@ -45,7 +45,7 @@ public class HomeFragment extends MainSectionFragmentBase<HomeViewModel> {
     }
 
     private void requestOpenCharacterCreation(View view) {
-        viewModel.openCharacterCreation();
+        viewModel.requestCharacterCreationViewModel();
     }
 
     private void setupRecyclerView(View v) {
